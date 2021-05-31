@@ -1,13 +1,10 @@
 extends layout
 
 block content
-  if welcomeMsg
-    p !{welcomeMsg}
-
-  div#login.container
+  div#register.container
     div: form(method='POST', class='form-vertical')
       fieldset
-        legend: strong.text-info Login page
+        legend: strong.text-info Register page
         
         div.form-group
           label Username:
@@ -18,9 +15,6 @@ block content
           input.form-control(name='password', type='password' value='password123')
 
         div.form-actions
-          input.btn.btn-primary(type='submit', value='Login')
-
-        
-        div.a(class='button' href='/login/register') Register
+          input.btn.btn-primary(type='submit', value='Register')
 
       

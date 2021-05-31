@@ -4,15 +4,18 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const connectEnsureLogin = require('connect-ensure-login');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const compression = require('compression');
 const helmet = require('helmet');
 
+
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const catalogRouter = require('./routes/catalog');
 const authenticationRouter = require('./routes/authentication');
+const userRouter = require('./routes/user');
 
 const app = express();
 
@@ -29,15 +32,30 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+/* Set up for authorization and authentication - initialize passport.js*/
+app.use(passport.initialize());
+app.use(passport.session());
+
+/* Define passport local strategy */
+const LocalStrategy = require('passport-local').Strategy;
+//User model
+const User = require('./models/user.js');
+passport.use(new LocalStrategy(User.authenticate()));
+
+//to use with sessions
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use(cookieParser());
 app.use(helmet());
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/catalog', catalogRouter);
 app.use('/login', authenticationRouter);
+app.use('/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -54,5 +72,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
 
 module.exports = app;
