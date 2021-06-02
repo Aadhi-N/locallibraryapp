@@ -1,6 +1,19 @@
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const JWTStrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
 const User = require('../models/user');
+
+
+genToken = user => {
+  return jwt.sign({
+    iss: 'Joan_Louji',
+    sub: user.id,
+    iat: new Date().getTime(),
+    exp: new Date().setDate(new Date().getDate() + 1)
+  }, process.env.JWT_SECRET);
+}
+
 
 //Display Login page 
 exports.index = function(req, res) {
@@ -18,12 +31,19 @@ exports.user_login_post = function(req, res, next) {
         err.status = 404;
         return next(err);
       } else {
-        req.login(user, function(err){
+        req.login(user, {session: false}, function(err){
           if(err){
             return next(err)
           }else{
-            const token =  jwt.sign({userId : user._id, username:user.username}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRES_IN});
-            res.render('dashboard', { message: "Authentication successful", token: token });
+            const body = {_id: user._id, username: user.username }
+            //sign token
+            // Generate JWT token
+            const token = genToken(user)
+            res
+            .set({
+              "Set-Cookie": `${token}`,
+              "Access-Control-Allow-Credentials": true
+            }).redirect('/user/dashboard');
           }
         })
       }
@@ -42,7 +62,7 @@ exports.user_register_post = function(req, res, next) {
     if (err) {
       return next(err);
     } else {
-      res.render('login', { welcomeMsg: 'Thanks for registering. Please log in.'});
+      res.render('login', { welcomeMsg: 'Signup successful. Please log in.'});
     }
   })
 }
@@ -54,7 +74,4 @@ exports.user_logout_get = function(req, res, next) {
 };
 
 
-// Display Dashboard on GET
-exports.dashboard_get = function(req, res, next) {
-  res.render('dashboard');
-};
+

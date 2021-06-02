@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const authentication_controller = require('../controllers/authenticationController');
+const user_controller = require('../controllers/userController');
 
 /* GET request to login user. */
 router.get('/', authentication_controller.index);
@@ -14,10 +15,6 @@ router.get('/register', authentication_controller.user_register_get);
 
 /* POST request to register user. */
 router.post('/register', authentication_controller.user_register_post);
-
-/* GET dashboard after login. */
-router.get('/dashboard', authentication_controller.dashboard_get);
-
 
 
 
