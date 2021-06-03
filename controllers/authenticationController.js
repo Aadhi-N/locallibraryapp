@@ -15,7 +15,7 @@ genToken = user => {
 }
 
 
-//Display Login page 
+/* Display Login page */
 exports.index = function(req, res) {
   res.render('login', { title: 'Login to Library'});
 };
@@ -71,6 +71,12 @@ exports.user_register_post = function(req, res, next) {
 // Display Login page after logging out
 exports.user_logout_get = function(req, res, next) {
   res.redirect('/login');
+};
+
+
+/* Display Admin Login page. */
+exports.admin_index = function(req, res) {
+  res.render('admin_login', { title: 'Admin Login to Library'});
 };
 
 

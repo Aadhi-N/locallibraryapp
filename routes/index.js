@@ -11,4 +11,12 @@ router.get('/home', function(req, res, next) {
 /* GET home page. */
 router.get('/', homepage_controller.index);
 
+/* GET About page. */
+router.get('/about', homepage_controller.about_get);
+
+/* GET Contact page. */
+router.get('/contact', homepage_controller.contact_get);
+
+
+
 module.exports = router;

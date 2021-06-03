@@ -48,7 +48,7 @@ app.use(session({ secret: 'mySecret', resave: false, saveUninitialized: false })
 /* Define passport local strategy */
 const LocalStrategy = require('passport-local').Strategy;
 //User model
-const User = require('./models/user.js');
+const User = require('./models/user');
 passport.use(new LocalStrategy(User.authenticate()));
 
 //to use with sessions

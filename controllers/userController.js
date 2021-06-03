@@ -10,5 +10,5 @@ exports.user_profile_settings_get = function(req, res, next) {
 
 /* Display Dashboard on GET. */
 exports.dashboard_get = function(req, res, next) {
-  res.render('dashboard', { message: 'you made it to secure route', user: req.user});
+  res.render('dashboard', { message: 'Welcome back', user: req.user});
 };

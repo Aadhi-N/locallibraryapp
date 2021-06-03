@@ -16,6 +16,9 @@ router.get('/register', authentication_controller.user_register_get);
 /* POST request to register user. */
 router.post('/register', authentication_controller.user_register_post);
 
+/* GET request to login admin. */
+router.get('/admin', authentication_controller.admin_index);
+
 
 
 module.exports = router;

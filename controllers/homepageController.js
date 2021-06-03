@@ -28,7 +28,20 @@ exports.index = function(req, res, next) {
   }, function(err, results) {
       if (err) { return next(err); }
       // Successful, so render.
-      res.render('index', { title: 'Hello', book_count: results.book_count, book_instance_count: results.book_instance_count, book_instance_available_count: results.book_instance_available_count, author_count: results.author_count, genre_count: results.genre_count});
+      res.render('index', { 
+        title: 'Narnia Public Library', 
+        welcomeMsg: "Welcome to Narnia Public Library",
+        welcomeDescription: "Narnia's largest digital collection of books, media, and more",
+        book_count: results.book_count, book_instance_count: results.book_instance_count, book_instance_available_count: results.book_instance_available_count, author_count: results.author_count, genre_count: results.genre_count});
     });
 };
 
+/* Display the About page. */
+exports.about_get = function(req, res, next) {
+  res.render('about');
+}
+
+/* Display the Contact page. */
+exports.contact_get = function(req, res, next) {
+  res.render('contact');
+}

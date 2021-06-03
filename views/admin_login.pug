@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  if welcomeMsg
+    p !{welcomeMsg}
+
+  div#login.container
+    div: form(method='POST', class='form-vertical')
+      fieldset
+        legend: strong.text-info Admin Login page
+        
+        div.form-group
+          label Username:
+          input.form-control(name='admin_username', autofocus, value='admin123')
+
+        div.form-group
+          label Password:
+          input.form-control(name='admin_password', type='password' value='password123')
+
+        div.form-actions
+          input.btn.btn-primary(type='submit', value='Login')
+
+      
