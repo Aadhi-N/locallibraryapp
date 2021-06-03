@@ -3,3 +3,14 @@
   padding: 0;
   list-style: none;
 }
+
+.jumbotron {
+  background-image: url('../images/banner.jpg');
+  background-size: cover;
+  height: 100%;
+}
+
+.search-bar {
+  width: 60%;
+};
+

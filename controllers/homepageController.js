@@ -31,7 +31,8 @@ exports.index = function(req, res, next) {
       res.render('index', { 
         title: 'Narnia Public Library', 
         welcomeMsg: "Welcome to Narnia Public Library",
-        welcomeDescription: "Narnia's largest digital collection of books, media, and more",
+        welcomeDesc: "Narnia's largest digital collection of books, media, and more",
+        featuredBook: "Searching for Home...",
         book_count: results.book_count, book_instance_count: results.book_instance_count, book_instance_available_count: results.book_instance_available_count, author_count: results.author_count, genre_count: results.genre_count});
     });
 };
