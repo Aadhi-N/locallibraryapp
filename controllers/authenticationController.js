@@ -1,7 +1,5 @@
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const JWTStrategy = require('passport-jwt').Strategy;
-const ExtractJWT = require('passport-jwt').ExtractJwt;
 const User = require('../models/user');
 
 
@@ -26,9 +24,8 @@ exports.user_login_post = function(req, res, next) {
       if(err){return next(err)};
 
       if (!user) {
-        console.log('user', user)
-        const err = new Error ("username or password incorrect");
-        err.status = 404;
+        //error handler in app.js
+        res.status(404);
         return next(err);
       } else {
         req.login(user, {session: false}, function(err){
@@ -64,13 +61,21 @@ exports.user_register_post = function(req, res, next) {
     } else {
       res.render('login', { welcomeMsg: 'Signup successful. Please log in.'});
     }
-  })
+  });
 }
 
 
 // Display Login page after logging out
 exports.user_logout_get = function(req, res, next) {
-  res.redirect('/login');
+  req.logout();
+  req.session.destroy(function (err) {
+      if (!err) {
+          res.status(200).clearCookie('userId', {path: '/login'})
+      } else {
+          // handle error case...
+      }
+
+  });
 };
 
 

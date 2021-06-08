@@ -1,8 +1,5 @@
 
 
-/* Extract JWT from query param, verify token has been signed, pass to next middleware. */
-
-
 /* Display user profile settings on GET. */
 exports.user_profile_settings_get = function(req, res, next) {
   res.render('user_profile_settings');
@@ -10,5 +7,15 @@ exports.user_profile_settings_get = function(req, res, next) {
 
 /* Display Dashboard on GET. */
 exports.dashboard_get = function(req, res, next) {
-  res.render('dashboard', { message: 'Welcome back', user: req.user});
+  let locals = res.locals.book_count;
+  res.render('dashboard', { 
+    welcomeMsg: 'Welcome back', 
+    user: req.user, 
+    welcomeDesc: "Explore Narnia's largest digital collection of books, media, and more",
+    book_count: locals.book_count, 
+    book_instance_count: locals.book_instance_count, 
+    book_instance_available_count: locals.book_instance_available_count, 
+    author_count: locals.author_count, 
+    genre_count: locals.genre_count
+  });
 };

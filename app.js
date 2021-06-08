@@ -5,19 +5,21 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
-const connectEnsureLogin = require('connect-ensure-login');
 const session = require('express-session');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const compression = require('compression');
 const helmet = require('helmet');
-// const bodyParser = require('body-parser');
 
-
+/* Routers */
 const indexRouter = require('./routes/index');
 const catalogRouter = require('./routes/catalog');
 const authenticationRouter = require('./routes/authentication');
 const userRouter = require('./routes/user');
+
+/* Models */
+const User = require('./models/user');
+
 
 // const authentication_controller = require('./controllers/authenticationController');
 
@@ -29,11 +31,11 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-// view engine setup
+/* View engine setup */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// app.use(bodyParser.json());
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -43,31 +45,52 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Send required data using sessions */
-app.use(session({ secret: 'mySecret', resave: false, saveUninitialized: false }));
+// app.use(session({ secret: 'mySecret', resave: false, saveUninitialized: false }));
 
 /* Define passport local strategy */
 const LocalStrategy = require('passport-local').Strategy;
-//User model
-const User = require('./models/user');
 passport.use(new LocalStrategy(User.authenticate()));
 
 //to use with sessions
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+/* Other */
 app.use(cookieParser());
-app.use(helmet());
 app.use(compression());
-app.use(express.static(path.join(__dirname, 'public')));
 
+/* Helmet content security policies */
+app.use(helmet.contentSecurityPolicy({
+  useDefaults: true,
+  directives: {
+    defaultSrc: ["'self'"],
+    styleSrc: ["'self'","'unsafe-inline'", 'cdn.jsdelivr.net', 
+   'fonts.googleapis.com', 'use.fontawesome.com'],
+    scriptSrc: ["'self'","'unsafe-inline'",'code.jquery.com', 'cdnjs.cloudflare.com', 'stackpath.bootstrapcdn.com', 'cdn.jsdelivr.net'],
+  }
+}));
+
+/* Static paths to render assets */
+app.use('/', express.static(path.join(__dirname, 'public')));
+
+/* Routes */
 app.use('/', indexRouter);
 app.use('/catalog', catalogRouter);
 app.use('/login', authenticationRouter);
 app.use('/user', passport.authenticate('jwt', {session: false}), userRouter);
 
+
+
+
 // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
+
+/* Error handlers */
+//login error 
 app.use(function(req, res, next) {
-  next(createError(404));
+  res.status(404).render('login_error', {err: 'Username or password incorrect'});
 });
 
 // error handler

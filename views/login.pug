@@ -1,26 +1,27 @@
 extends layout
 
-block content
-  if welcomeMsg
-    p !{welcomeMsg}
-
-  div#login.container
-    div: form(method='POST', class='form-vertical')
-      fieldset
-        legend: strong.text-info Login page
-        
-        div.form-group
-          label Username:
-          input.form-control(name='username', autofocus, value='qwertyui')
-
-        div.form-group
-          label Password:
-          input.form-control(name='password', type='password' value='password123')
-
-        div.form-actions
-          input.btn.btn-primary(type='submit', value='Login')
-
-        
-        div.a(class='button' href='/login/register') Register
-
+block main
+  .container-fluid
+  .row.no-gutter
+    .d-none.d-md-flex.col-md-4.col-lg-6.bg-image
+    .col-md-8.col-lg-6
+      .login.d-flex.align-items-center.py-5
+        .container
+          .row
+            .col-md-9.col-lg-8.mx-auto
       
+              h3.login-heading.mb-4 Login
+              form.needs-validation(METHOD='POST')
+                .form-label-group
+                  label.pb-2(for='inputUsername') Library card number (8 digits)
+                  input#inputUsername.form-control(type='text' name='username' required='' autofocus='' value='qwertyui')
+                .form-label-group
+                  label.pb-2(for='inputPassword') Password
+                  input#inputPassword.form-control(type='text' name='password' required='' value='password123')
+                .custom-control.custom-checkbox.mb-3
+                  input.me-2#customCheck1.custom-control-input(type='checkbox')
+                  label.custom-control-label(for='customCheck1') Remember password
+
+                button.btn.btn-lg.btn-primary.btn-block.btn-login.text-uppercase.font-weight-bold.mb-2(type='submit') Sign in
+                .text-center
+                  a.small(href='#') Forgot password?

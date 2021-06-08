@@ -40,7 +40,7 @@ const Admin = require('../models/admin');
   
 passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromHeader('cookie'),
-    secretOrKey   : process.env.JWT_SECRET
+    secretOrKey: process.env.JWT_SECRET
   },
    function (jwtPayload, done) {
      return User.findById(jwtPayload.sub)
@@ -53,5 +53,5 @@ passport.use(new JWTStrategy({
      return done(err);
    });
   }
-  ));
+));
 

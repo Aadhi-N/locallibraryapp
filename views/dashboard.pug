@@ -1,9 +1,11 @@
 extends layout 
   
-block content
-  h1 #{message}, #{user}
+block mainBanner
+  // Page header with logo and tagline
+  .jumbotron.header.py-5.bg-light.border-bottom.mb-0
+    .container.py-5
+      .text-center.my-5
+        h1.fw-bolder !{welcomeMsg}, !{user.username}!
+        p.lead.mb-0 !{welcomeDesc}
 
-
-
-  p(a href="/logout") Log Out
   
