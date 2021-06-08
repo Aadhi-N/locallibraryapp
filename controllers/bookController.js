@@ -29,14 +29,9 @@ exports.index = function(req, res) {
 };
 
 // Display list of all books.
-exports.book_list = function(req, res, next) {
-    Book.find({}, 'title author')
-    .populate('author')
-    .exec(function(err, list_books) {
-        if (err) {return next(err)};
-        res.render('book_list', {title: 'Book List', book_list: list_books});
-    })
-
+exports.book_list_get = function(req, res, next) {
+    let bookListState = res.locals.list_books;
+    res.render('book_list', {title: 'Book List', book_list: bookListState});
 };
 
 // Display detail page for a specific book.

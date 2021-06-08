@@ -37,8 +37,11 @@ exports.user_login_post = function(req, res, next) {
             // Generate JWT token
             const token = genToken(user)
             res
+            // .cookie('jwt', token, {httpOnly: true, secure: false}) //switch to true in production
+            // .set({ "Access-Control-Allow-Credentials": true}) 
+            // .redirect('/user/dashboard');
             .set({
-              "Set-Cookie": `${token}`,
+              "Set-Cookie": `sessionId=${token}`,
               "Access-Control-Allow-Credentials": true
             }).redirect('/user/dashboard');
           }

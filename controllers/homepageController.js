@@ -2,7 +2,6 @@
 
 // Display Library Home Page
 exports.index = function(req, res, next) {
-  // res.set({"Set-Cookie": `userId=1234`})
   res.cookie('userId', '1234', {expires: 0});
   let locals = res.locals.book_count;
   res.render('index', { 

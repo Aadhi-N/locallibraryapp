@@ -1,11 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-// Require controller modules.
+/* Require controller modules. */
 var book_controller = require('../controllers/bookController');
 var author_controller = require('../controllers/authorController');
 var genre_controller = require('../controllers/genreController');
 var book_instance_controller = require('../controllers/bookinstanceController');
+
+/* Require service modules. */
+const catalog_service= require('../services/catalogService.js');
+
 
 /// BOOK ROUTES ///
 
@@ -34,7 +38,7 @@ router.post('/book/:id/update', book_controller.book_update_post);
 router.get('/book/:id', book_controller.book_detail);
 
 // GET request for list of all Book items.
-router.get('/books', book_controller.book_list);
+router.get('/books', catalog_service.book_list, book_controller.book_list_get);
 
 /// AUTHOR ROUTES ///
 

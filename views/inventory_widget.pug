@@ -1,0 +1,13 @@
+block inventory 
+
+.col-lg-4
+  // Inventory widget
+  .card.mb-4
+      .card-header This library holds...
+      .card-body
+          ul.list-group.list-group-flushed
+            li.list-group-item.fw-bold Books: !{book_count}
+            li.list-group-item.fw-bold Copies: !{book_instance_count}
+            li.list-group-item.fw-bold Copies Available: !{book_instance_available_count}
+            li.list-group-item.fw-bold Authors: !{author_count}
+            li.list-group-item.fw-bold Genres: !{genre_count}
