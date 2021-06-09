@@ -4,6 +4,7 @@ const passport = require('passport');
 const authentication_controller = require('../controllers/authenticationController');
 const user_controller = require('../controllers/userController');
 
+
 /* GET request to login user. */
 router.get('/', authentication_controller.index);
 

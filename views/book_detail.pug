@@ -1,44 +1,50 @@
 extends layout 
 
-block content 
-  h1 Title: #{book.title}
+block featured 
+  h2.pb-5 Book Details
+  .card.py-5.px-3
+    img.card-img-top(src='/images/book_cover.png', alt='Book cover image for #{book.title}')
+    .card-body
+      h4.card-title Title: #{book.title}
+      
+      p #[strong Author:] 
+        a(href=book.author.url) #{book.author.name}
+      p #[strong Summary:] #{book.summary}
+      p #[strong ISBN:] #{book.isbn}
+      p #[strong Genre:] 
+        each val, index in book.genre
+          a(href=val.url) #{val.name}
+          if index < book.genre.length - 1
+            |,
 
-  p #[strong Author:]
-    a(href=book.author.url) #{book.author.name}
-  p #[strong Summary:] #{book.summary}
-  p #[strong ISBN:] #{book.isbn}
-  p #[strong Genre:]
-    each val, index in book.genre
-      a(href=val.url) #{val.name}
-      if index < book.genre.length - 1
-        |,
+      div(style='margin-left:20px;margin-top:20px')
+        h4 Copies
 
-  div(style='margin-left:20px;margin-top:20px')
-    h4 Copies
+        each val in book_instances
+          hr
+          if val.status=='Available'
+            p.text-success #{val.status}
+          else if val.status=='Maintenance'
+            p.text-danger #{val.status}
+          else
+            p.text-warning #{val.status}
+          p #[strong Imprint:] #{val.imprint}
+          if val.status!='Available'
+            p #[strong Due back:] #{val.due_back}
+          p #[strong Id:] 
+            a(href=val.url) #{val._id}
+          p
+            if val.status!='Available'
+              p.text-muted(data-toggle="tooltip" data-placement="top" title="Cannot delete book until its status is Available.") Delete Book 
+            else 
+              a(href=val.url+'/delete') Delete Book
+        else
+          p There are no copies of this book in the library.
+      
 
-    each val in book_instances
-      hr
-      if val.status=='Available'
-        p.text-success #{val.status}
-      else if val.status=='Maintenance'
-        p.text-danger #{val.status}
-      else
-        p.text-warning #{val.status}
-      p #[strong Imprint:] #{val.imprint}
-      if val.status!='Available'
-        p #[strong Due back:] #{val.due_back}
-      p #[strong Id:]
-        a(href=val.url) #{val._id}
-      p
-        if val.status!='Available'
-          p.text-muted(data-toggle="tooltip" data-placement="top" title="Cannot delete book until its status is Available.") Delete Book 
-        else 
-          a(href=val.url+'/delete') Delete Book
-    else
-      p There are no copies of this book in the library.
+    .card-body
+      a.card-link(href=book.url+'/delete') Delete Book
+      a.card-link(href=book.url+'/update') Update Book
 
-  hr
-  p
-    a(href=book.url+'/delete') Delete Book
-  p
-    a(href=book.url+'/update') Update Book
+
+

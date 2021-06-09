@@ -3,17 +3,19 @@
 // Display Library Home Page
 exports.index = function(req, res, next) {
   res.cookie('userId', '1234', {expires: 0});
-  let locals = res.locals.book_count;
+  let headers = res.locals;
+  let count = res.locals.book_count;
+
   res.render('index', { 
-    title: 'Narnia Public Library', 
-    welcomeMsg: "Welcome to Narnia Public Library",
-    welcomeDesc: "Narnia's largest digital collection of books, media, and more",
-    featuredBook: "Searching for Home...",
-    book_count: locals.book_count, 
-    book_instance_count: locals.book_instance_count, 
-    book_instance_available_count: locals.book_instance_available_count, 
-    author_count: locals.author_count, 
-    genre_count: locals.genre_count
+    libTitle: headers.libTitle, 
+    welcomeMsg: headers.welcomeMsg,
+    welcomeDesc: headers.welcomeDesc,
+    featuredBook: headers.featuredBook,
+    book_count: count.book_count, 
+    book_instance_count: count.book_instance_count, 
+    book_instance_available_count: count.book_instance_available_count, 
+    author_count: count.author_count, 
+    genre_count: count.genre_count
   });
 };
 

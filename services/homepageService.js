@@ -30,3 +30,10 @@ exports.book_count = function(req, res, next) {
       next();      
     });
 };
+
+exports.headers = function(req, res, next) {
+  res.locals.headers = {
+    title: 'hello'
+  }
+  next();
+}

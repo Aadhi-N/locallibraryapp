@@ -5,7 +5,7 @@
 }
 
 .jumbotron {
-  background-image: url('../images/banner.jpg');
+  background-image: url('/images/banner.jpg');
   background-size: cover;
   height: 100%;
 }
@@ -96,6 +96,6 @@
 
 
 /* Book list custom CSS */
-.summary {
+.preview-summary {
   text-overflow: ellipsis;
 }

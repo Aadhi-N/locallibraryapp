@@ -6,57 +6,20 @@ const BookInstance = require('../models/bookinstance');
 
 const async = require('async');
 
-exports.index = function(req, res) {
-    async.parallel({
-        book_count: function(callback) {
-            Book.countDocuments({}, callback);
-        },
-        book_instance_count: function(callback) {
-            BookInstance.countDocuments({}, callback);
-        },
-        book_instance_available_count: function(callback) {
-            BookInstance.countDocuments({status: 'Available'}, callback);
-        },
-        author_count: function(callback) {
-            Author.countDocuments({}, callback);
-        },
-        genre_count: function(callback) {
-            Genre.countDocuments({}, callback);
-        }
-    }, function(err, results) {
-        res.render('index', {title: 'Local Library Home', error: err, data: results});
-    })
-};
 
 // Display list of all books.
 exports.book_list_get = function(req, res, next) {
-    let bookListState = res.locals.list_books;
-    res.render('book_list', {title: 'Book List', book_list: bookListState});
+    let list_books = res.locals.list_books;
+    res.render('book_list', {listTitle: 'List of All Books', book_list: list_books});
 };
 
-// Display detail page for a specific book.
+/* Display detail page for a specific book. */
 exports.book_detail = function(req, res, next) {
-    async.parallel({
-        book: function(callback) {
-            Book.findById(req.params.id)
-                .populate('author')
-                .populate('genre')
-                .exec(callback);
-        },
-        book_instance: function(callback) {
-            BookInstance.find({'book': req.params.id})
-            .exec(callback)
-        }  
-    }, function(err, results) {
-        if (err) {return next(err);}
-        if (results.book == null) { //no results
-            var err = new Error('Book not found');
-            err.status = 404;
-            return next(err);
-        }
-        //Successful, so render
-        res.render('book_detail', {title: results.book.title, book: results.book, book_instances: results.book_instance});
-    });
+    let book_detail = res.locals.book_detail;
+    res.render('book_detail', {
+        title: book_detail.book.title, 
+        book: book_detail.book, 
+        book_instances: book_detail.book_instance});
 };
 
 

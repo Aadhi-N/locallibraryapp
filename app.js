@@ -20,6 +20,8 @@ const userRouter = require('./routes/user');
 /* Models */
 const User = require('./models/user');
 
+const homepage_service= require('./services/homepageService.js');
+
 
 // const authentication_controller = require('./controllers/authenticationController');
 

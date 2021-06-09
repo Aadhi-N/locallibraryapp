@@ -1,13 +1,23 @@
 extends layout 
 
-block content 
+block featured 
   h1=title 
 
-  ul 
     each author in author_list 
-      li 
-        a(href=author.url) #{author.name} 
-        | (#{author.birth_formatted} - #{author.death_formatted})
+      .card.mb-3(style='max-width: 540px;')
+        .row.g-0
+          .col-md-4
+            a(href=author.url)
+              img.img-fluid(src='/images/author_icon.jpg', alt='author icon')
+          .col-md-8
+            .card-body
+              h5.card-title 
+                a(href=author.url) #{author.name} 
+                
+                .card-text.pt-3 (#{author.birth_formatted} - #{author.death_formatted})
 
     else 
-      li There are no authors.
+      p There are no authors.
+
+
+
