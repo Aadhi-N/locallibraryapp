@@ -6,7 +6,7 @@ console.log('This script populates some admin users to the database. Specified d
 var adminsArgs = process.argv.slice(2);
 
 var async = require('async')
-var Admin = require('./models/admin')
+var Admin = require('../models/admin')
 
 var mongoose = require('mongoose');
 var mongoDB = adminsArgs[0];

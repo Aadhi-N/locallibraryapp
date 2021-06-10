@@ -9,25 +9,43 @@ append head
 
 
 block main
+  if errors
+    ul
+      for error in errors
+        li!= error.msg
+
   .container.pb-5
     .row
         .col-lg-8
           block map 
             .map-container
             // Location map 
-            h1 Branch Locations
+            h2.pb-2 Branch Locations
             #mapid
         
-          .card.mb-3(style='max-width: 540px;')
-          .row.g-0
-            .col-md-4
-              a(href='#')
-                img.img-fluid(src='/images/author_icon.jpg', alt='author icon')
-            .col-md-8
-              .card-body
-                h5.card-title 
-                  a(href="#") sdjfhs
+          block locations
+            h2.pt-4.pb-2 List of Branches
+            table.table
+              thead
+                tr.table-active
+                  th(scope='col') Address
+                  th(scope='col') Hours
+                  th(scope='col') Phone
+              tbody
+                tr
+                  td 123 fhf
+                  td 9:00 am - 8:00 pm
+                  td jgdfg
                   
+                tr
+                  td 134 dsdf
+                  td 9:00 am - 4:30 pm
+                  td slf
+                tr
+                  td 2234
+                  td Closed
+                  td fjd
+                
                   
 
         .col-lg-4
@@ -60,23 +78,23 @@ block main
           
           block contactForm
             h2 Email 
-            form
+            form(method='POST' action='')
               .form-group.pb-4
-                label(for='inputName') Name 
+                label(for='name') Name 
                   label.text-danger (required)
-                input#inputName.form-control(type='name', aria-describedby='nameContact')
+                input#inputName.form-control(type='name', aria-describedby='nameContact' value='testername' name='name')
               .form-group.pb-4
-                label(for='inputEmail') Email 
+                label(for='email') Email 
                   label.text-danger (required)
-                input#inputEmail.form-control(type='email', aria-describedby='emailContact')
+                input#inputEmail.form-control(type='email', aria-describedby='emailContact' value='a@a.com' name='email')
               .form-group.pb-2
-                label(for='inputAccount') Library Card Number 
+                label(for='libary_card') Library Card Number 
               small#accHelp.form-text.text-muted (required only for account related inquiries)
-                input#inputAcc.form-control(type='number', aria-describedby='accContact')
+                input#inputAcc.form-control(type='number', aria-describedby='accContact' value='12345678' name='library_card')
               .form-group.py-4
-                label(for='inputMessage') Message 
+                label(for='message') Message 
                   label.text-danger (required)
-                textarea#messageFormControlTextarea.form-control(rows='3')
+                textarea#messageFormControlTextarea.form-control(rows='3' name='message')
               button.btn.btn-primary(type='submit') Submit
 
   script(src='/javascripts/map_scripts.js')

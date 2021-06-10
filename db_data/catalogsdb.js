@@ -11,10 +11,10 @@ if (!userArgs[0].startsWith('mongodb')) {
 }
 */
 var async = require('async')
-var Book = require('./models/book')
-var Author = require('./models/author')
-var Genre = require('./models/genre')
-var BookInstance = require('./models/bookinstance')
+var Book = require('../models/book')
+var Author = require('../models/author')
+var Genre = require('../models/genre')
+var BookInstance = require('../models/bookinstance')
 
 
 var mongoose = require('mongoose');
@@ -35,7 +35,7 @@ var books = []
 var bookinstances = []
 
 function authorCreate(first_name, family_name, d_birth, d_death, cb) {
-  authordetail = {first_name:first_name , family_name: family_name }
+  authordetail = { first_name: first_name , family_name: family_name }
   if (d_birth != false) authordetail.date_of_birth = d_birth
   if (d_death != false) authordetail.date_of_death = d_death
   

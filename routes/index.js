@@ -24,6 +24,9 @@ router.get('/about', homepage_controller.about_get);
 /* GET Contact page. */
 router.get('/contact', homepage_controller.contact_get);
 
+// POST request for Contact page messages.
+router.post('/contact', homepage_controller.message_create_post);
+
 
 
 module.exports = router;

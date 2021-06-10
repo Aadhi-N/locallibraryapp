@@ -6,7 +6,7 @@ console.log('This script populates some users to the database. Specified databas
 var userArgs = process.argv.slice(2);
 
 var async = require('async')
-var User = require('./models/user')
+var User = require('../models/user')
 
 var mongoose = require('mongoose');
 var mongoDB = userArgs[0];
