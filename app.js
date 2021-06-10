@@ -66,9 +66,10 @@ app.use(helmet.contentSecurityPolicy({
   useDefaults: true,
   directives: {
     defaultSrc: ["'self'"],
-    styleSrc: ["'self'","'unsafe-inline'", 'cdn.jsdelivr.net', 
+    imgSrc: ["'self'","'unsafe-inline'", 'api.mapbox.com', 'unpkg.com'],
+    styleSrc: ["'self'","'unsafe-inline'", 'unpkg.com', 'cdn.jsdelivr.net', 
    'fonts.googleapis.com', 'use.fontawesome.com'],
-    scriptSrc: ["'self'","'unsafe-inline'",'code.jquery.com', 'cdnjs.cloudflare.com', 'stackpath.bootstrapcdn.com', 'cdn.jsdelivr.net'],
+    scriptSrc: ["'self'","'unsafe-inline'", 'unpkg.com', 'code.jquery.com', 'cdnjs.cloudflare.com', 'stackpath.bootstrapcdn.com', 'cdn.jsdelivr.net'],
   }
 }));
 

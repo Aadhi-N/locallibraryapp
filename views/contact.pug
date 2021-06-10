@@ -1,45 +1,62 @@
 extends layout 
 
+append head 
+  link(rel='stylesheet', href='https://unpkg.com/leaflet@1.7.1/dist/leaflet.css', integrity='sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==', crossorigin='')
+  // Make sure you put this AFTER Leaflet's CSS
+  script(src='https://unpkg.com/leaflet@1.7.1/dist/leaflet.js', integrity='sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==', crossorigin='')
+
+  
+
+
 block main
   .container.pb-5
     .row
         .col-lg-8
           block map 
+            .map-container
             // Location map 
-            h1 map
+            h1 Branch Locations
+            #mapid
+        
+          .card.mb-3(style='max-width: 540px;')
+          .row.g-0
+            .col-md-4
+              a(href='#')
+                img.img-fluid(src='/images/author_icon.jpg', alt='author icon')
+            .col-md-8
+              .card-body
+                h5.card-title 
+                  a(href="#") sdjfhs
+                  
+                  
 
         .col-lg-4
           block contactInfo
-            h2 Hours of Service
+            h2 Customer Service Hours
             table.table
               thead
-                tr
+                tr.table-active
                   th(scope='col') Days
                   th(scope='col') Hours
               tbody
                 tr
-                  th(scope='row') 1
-                  td Mark
-                  td Otto
-                  td @mdo
+                  td Monday - Friday
+                  td 9:00 am - 8:00 pm
                 tr
-                  th(scope='row') 2
-                  td Jacob
-                  td Thornton
-                  td @fat
+                  td Saturday
+                  td 9:00 am - 4:30 pm
                 tr
-                  th(scope='row') 3
-                  td Larry
-                  td the Bird
-                  td @twitter
+                  td Sunday
+                  td Closed
 
 
-            hr.solid
+            hr.solid.my-4
             // Contact info
             h2 Call 
             p 111-111-1111
             p If you are a TTY user, you can also call us using TTY Relay Service (711).
-            hr.solid
+            
+            hr.solid.my-4
           
           block contactForm
             h2 Email 
@@ -62,3 +79,4 @@ block main
                 textarea#messageFormControlTextarea.form-control(rows='3')
               button.btn.btn-primary(type='submit') Submit
 
+  script(src='/javascripts/map_scripts.js')

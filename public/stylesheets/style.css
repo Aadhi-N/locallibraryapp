@@ -98,4 +98,14 @@
 /* Book list custom CSS */
 .preview-summary {
   text-overflow: ellipsis;
+};
+
+/* Leaflet map CSS */
+body {
+  padding: 0;
+  margin: 0;
+}
+html, body, #mapid {
+  height: 50%;
+  width: 100%;
 }
