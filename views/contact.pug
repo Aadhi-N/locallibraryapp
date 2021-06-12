@@ -80,6 +80,10 @@ block main
             h2 Email 
             form(method='POST' action='')
               .form-group.pb-4
+                label(for='admin') Admin 
+                  label.text-danger (required)
+                input#inputName.form-control(type='name', aria-describedby='nameContact' value=adminId._id name='to_id')
+              .form-group.pb-4
                 label(for='name') Name 
                   label.text-danger (required)
                 input#inputName.form-control(type='name', aria-describedby='nameContact' value='testername' name='name')

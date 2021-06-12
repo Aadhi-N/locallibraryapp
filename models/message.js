@@ -7,7 +7,6 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 const MessageSchema = new Schema (
   {
-    from_id: {type: Schema.Types.ObjectId, ref: 'User', required: true},
     to_id: {type: Schema.Types.ObjectId, ref: 'Admin', required: true},
     subject: {type: String},
     name: {type: String},

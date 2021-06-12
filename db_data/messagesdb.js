@@ -19,7 +19,6 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 Message.create([{
-  from_id: '60b7f0a5fd165d866688494c',
   to_id: '60ae8e75c0c7463856408549',
   subject: 'Inquiry Ref #1234 - Jane Barn - July 1, 2021',
   name: 'Jane Barn',

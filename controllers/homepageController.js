@@ -1,5 +1,8 @@
 const {body, validationResult} = require("express-validator");
 const Message = require('../models/message.js');
+const User = require('../models/user.js');
+const Admin = require('../models/admin.js');
+
 
 // Display Library Home Page
 exports.index = function(req, res, next) {
@@ -34,7 +37,13 @@ exports.delete_cookies = function(req, res, next) {
 
 /* Display the Contact page. */
 exports.contact_get = function(req, res, next) {
-  res.render('contact');
+
+  Admin.findById('60b7f0a5fd165d866688494c').exec(function(err, adminId) {
+    if (err) return err;
+    res.render('contact', {adminId: adminId})
+  })
+
+  // res.render('contact');
 };
 
 /* Handle Message create on post in Contact page. */
@@ -59,24 +68,37 @@ exports.message_create_post = [
     } else {
       // Data from form is valid.
       // Create Message object with escaped and trimmed data
+      const toId = Admin.findById('60b7f0a5fd165d866688494c', function(err, toId) {
+        if (err) return next(err);
+        return toId;
+      });
+      //   if (err) return next(err);
+      //   return fromId;
+      // })
+      // user = 60ae8e75c0c7463856408549
+      // const toId = await Admin.findById('60b7f0a5fd165d866688494c', function(err))
+
       var message = new Message(
         {
-          from_id: '60ae8e75c0c7463856408549',
-          to_id: '60b7f0a5fd165d866688494c',
+          to_id: req.body.to_id,
           subject: `Inquiry Ref ${generateRefNum()} - ${req.body.name} - ${Date.now()}`,
           name: req.body.name,
           email: req.body.email,
           library_card: req.body.library_card,
           message: req.body.message,
           read: false,
-          timestamp: Date.now()
+          timestamp: Date.now(),
         }
       );
 
       message.save(function (err) {
-          if (err) { return next(err); }
+          if (err) { 
+            console.log('ERRORRRRR', message)
+            console.log('to_id field', req.body)
+            return next(err); }
           // Successful - redirect to new author record.
           res.redirect('/');
+          console.log('to_id field', req.body)
       });
     }
   }
