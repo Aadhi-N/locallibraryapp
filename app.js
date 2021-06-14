@@ -68,8 +68,8 @@ app.use(helmet.contentSecurityPolicy({
     defaultSrc: ["'self'"],
     imgSrc: ["'self'","'unsafe-inline'", 'api.mapbox.com', 'unpkg.com'],
     styleSrc: ["'self'","'unsafe-inline'", 'unpkg.com', 'cdn.jsdelivr.net', 
-   'fonts.googleapis.com', 'use.fontawesome.com'],
-    scriptSrc: ["'self'","'unsafe-inline'", 'unpkg.com', 'code.jquery.com', 'cdnjs.cloudflare.com', 'stackpath.bootstrapcdn.com', 'cdn.jsdelivr.net'],
+   'fonts.googleapis.com', 'use.fontawesome.com', 'maxcdn.bootstrapcdn.com'],
+    scriptSrc: ["'self'","'unsafe-inline'", 'unpkg.com', 'code.jquery.com', 'cdnjs.cloudflare.com', 'stackpath.bootstrapcdn.com', 'cdn.jsdelivr.net', 'ajax.googleapis.com', 'maxcdn.bootstrapcdn.com'],
   }
 }));
 
@@ -80,7 +80,8 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/catalog', catalogRouter);
 app.use('/login', authenticationRouter);
-app.use('/user', passport.authenticate('jwt', {session: false}), userRouter);
+// app.use('/user', passport.authenticate('jwt', {session: false}), userRouter);
+app.use('/user', userRouter);
 
 
 

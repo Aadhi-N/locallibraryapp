@@ -18,11 +18,17 @@ const MessageSchema = new Schema (
   }
 );
 
-// MessageSchema
-// .virtual('url')
-// .get(function() {
-//   return '/login/user/' + this._id;
-// });
+MessageSchema
+.virtual('date_formatted')
+.get(function() {
+  return DateTime.fromJSDate(this.timestamp).toLocaleString(DateTime.DATETIME_MED)
+})
+
+MessageSchema
+.virtual('url')
+.get(function() {
+  return '/user/message/' + this._id;
+});
 
 MessageSchema.plugin(passportLocalMongoose);
 

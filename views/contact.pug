@@ -4,6 +4,8 @@ append head
   link(rel='stylesheet', href='https://unpkg.com/leaflet@1.7.1/dist/leaflet.css', integrity='sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==', crossorigin='')
   // Make sure you put this AFTER Leaflet's CSS
   script(src='https://unpkg.com/leaflet@1.7.1/dist/leaflet.js', integrity='sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==', crossorigin='')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')
 
   
 
@@ -77,28 +79,6 @@ block main
             hr.solid.my-4
           
           block contactForm
-            h2 Email 
-            form(method='POST' action='')
-              .form-group.pb-4
-                label(for='admin') Admin 
-                  label.text-danger (required)
-                input#inputName.form-control(type='name', aria-describedby='nameContact' value=adminId._id name='to_id')
-              .form-group.pb-4
-                label(for='name') Name 
-                  label.text-danger (required)
-                input#inputName.form-control(type='name', aria-describedby='nameContact' value='testername' name='name')
-              .form-group.pb-4
-                label(for='email') Email 
-                  label.text-danger (required)
-                input#inputEmail.form-control(type='email', aria-describedby='emailContact' value='a@a.com' name='email')
-              .form-group.pb-2
-                label(for='libary_card') Library Card Number 
-              small#accHelp.form-text.text-muted (required only for account related inquiries)
-                input#inputAcc.form-control(type='number', aria-describedby='accContact' value='12345678' name='library_card')
-              .form-group.py-4
-                label(for='message') Message 
-                  label.text-danger (required)
-                textarea#messageFormControlTextarea.form-control(rows='3' name='message')
-              button.btn.btn-primary(type='submit') Submit
+            include ./contact_form
 
   script(src='/javascripts/map_scripts.js')

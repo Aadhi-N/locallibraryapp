@@ -1,0 +1,13 @@
+extends admin_layout 
+
+block viewContainer 
+  .col-8 
+    h4 !{message.subject}
+    p From: !{message.name} - !{message.email}
+    p To: !{message.to_id}
+    p Date: !{message.date_formatted}
+    p BODY: 
+      if message.library_card 
+        p !{message.library_card}
+      p !{message.message}
+

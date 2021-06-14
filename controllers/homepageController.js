@@ -37,19 +37,13 @@ exports.delete_cookies = function(req, res, next) {
 
 /* Display the Contact page. */
 exports.contact_get = function(req, res, next) {
-
-  Admin.findById('60b7f0a5fd165d866688494c').exec(function(err, adminId) {
-    if (err) return err;
-    res.render('contact', {adminId: adminId})
-  })
-
-  // res.render('contact');
+  res.render('contact');
 };
 
 /* Handle Message create on post in Contact page. */
 exports.message_create_post = [
   // Validate and sanitize fields.
-  body('name'),
+  body('name').trim().isLength({ min: 1 }),
   body('email').trim().isLength({ min: 1 }).isEmail().escape().withMessage('Email must be specified.'),
   body('message').trim().isLength({ min: 1 }).escape().withMessage('Message must be specified.'),
 
@@ -62,25 +56,18 @@ exports.message_create_post = [
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values and error messages.
       res.render('contact', { errors: errors.array() });
-      // res.render('contact', {error});
 
       return;
     } else {
       // Data from form is valid.
       // Create Message object with escaped and trimmed data
-      const toId = Admin.findById('60b7f0a5fd165d866688494c', function(err, toId) {
-        if (err) return next(err);
-        return toId;
-      });
-      //   if (err) return next(err);
-      //   return fromId;
-      // })
+
       // user = 60ae8e75c0c7463856408549
-      // const toId = await Admin.findById('60b7f0a5fd165d866688494c', function(err))
+      //admin = 60b7f0a5fd165d866688494c
 
       var message = new Message(
         {
-          to_id: req.body.to_id,
+          to_id: '60b7f0a5fd165d866688494c',
           subject: `Inquiry Ref ${generateRefNum()} - ${req.body.name} - ${Date.now()}`,
           name: req.body.name,
           email: req.body.email,
@@ -93,12 +80,10 @@ exports.message_create_post = [
 
       message.save(function (err) {
           if (err) { 
-            console.log('ERRORRRRR', message)
-            console.log('to_id field', req.body)
             return next(err); }
           // Successful - redirect to new author record.
-          res.redirect('/');
-          console.log('to_id field', req.body)
+          // res.redirect('/', {message: 'hello'});
+          res.render('contact', { message: 'something blew up'})
       });
     }
   }

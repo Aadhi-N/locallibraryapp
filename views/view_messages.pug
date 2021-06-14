@@ -1,0 +1,28 @@
+block main 
+
+.container.pt-5(style='height: 600px')
+  .row
+    .col-4 
+      button NEW MESSAGE 
+
+      h4 FOLDERS 
+      a(href='/user/all_messages')
+        p Inbox(14)
+        
+
+    block viewContainer
+      .col-8 
+        each message in message_list
+          a(href=message.url)
+            table.table.table-hover
+              tbody
+                tr
+                  td !{message.name}
+                  td !{message.subject}
+                  td !{message.date_formatted}
+                  td
+                    button DELETE
+
+    
+
+        
