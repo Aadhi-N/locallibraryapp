@@ -1,3 +1,4 @@
+
 block main 
 
 .container.pt-5(style='height: 600px')
@@ -13,16 +14,21 @@ block main
     block viewContainer
       .col-8 
         each message in message_list
-          a(href=message.url)
+          form(METHOD='POST' action='')
+            input(type='hidden' name='id' value=message._id)
             table.table.table-hover
+              button(type='submit') OPEN MESSAGE
               tbody
-                tr
-                  td !{message.name}
-                  td !{message.subject}
-                  td !{message.date_formatted}
-                  td
-                    button DELETE
+                  tr
+                    td !{message.subject}
+                    td !{message.subject}
+                    td !{message.date_formatted}
+                    td !{message.read}
+                    td
+                      button DELETE
+          
 
-    
+            
+
 
         

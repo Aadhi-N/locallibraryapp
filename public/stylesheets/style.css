@@ -109,3 +109,9 @@ html, body, #mapid {
   height: 50%;
   width: 100%;
 }
+
+
+/* Inbox Messages CSS */
+#unread {
+  font-weight: bold;
+}

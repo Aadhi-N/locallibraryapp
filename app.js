@@ -10,6 +10,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const compression = require('compression');
 const helmet = require('helmet');
+const cors = require('cors');
 
 /* Routers */
 const indexRouter = require('./routes/index');
@@ -61,6 +62,9 @@ passport.deserializeUser(User.deserializeUser());
 app.use(cookieParser());
 app.use(compression());
 
+
+
+
 /* Helmet content security policies */
 app.use(helmet.contentSecurityPolicy({
   useDefaults: true,
@@ -70,8 +74,10 @@ app.use(helmet.contentSecurityPolicy({
     styleSrc: ["'self'","'unsafe-inline'", 'unpkg.com', 'cdn.jsdelivr.net', 
    'fonts.googleapis.com', 'use.fontawesome.com', 'maxcdn.bootstrapcdn.com'],
     scriptSrc: ["'self'","'unsafe-inline'", 'unpkg.com', 'code.jquery.com', 'cdnjs.cloudflare.com', 'stackpath.bootstrapcdn.com', 'cdn.jsdelivr.net', 'ajax.googleapis.com', 'maxcdn.bootstrapcdn.com'],
-  }
-}));
+    }
+  })
+);
+
 
 /* Static paths to render assets */
 app.use('/', express.static(path.join(__dirname, 'public')));

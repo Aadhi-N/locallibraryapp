@@ -2,6 +2,7 @@ extends admin_layout
 
 block viewContainer 
   .col-8 
+    h4 !{message}
     h4 !{message.subject}
     p From: !{message.name} - !{message.email}
     p To: !{message.to_id}
@@ -11,3 +12,7 @@ block viewContainer
         p !{message.library_card}
       p !{message.message}
 
+  if errors
+   ul
+    for error in errors
+     li!= error.msg

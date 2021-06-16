@@ -18,6 +18,9 @@ router.get('/dashboard', passport.authenticate('jwt', {session: false}), homepag
 /* GET message inbox. */
 router.get('/all_messages', user_controller.view_messages);
 
+/* POST update for individual message. */
+router.post('/all_messages', user_controller.message_detail_post);
+
 /* GET individual message. */
 router.get('/message/:id', user_controller.message_detail);
 
