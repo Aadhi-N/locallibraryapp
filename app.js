@@ -4,8 +4,9 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const passport = require('passport');
 const session = require('express-session');
+const passport = require('passport');
+const connectEnsureLogin = require('connect-ensure-login');// authorization
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const compression = require('compression');
@@ -15,16 +16,13 @@ const cors = require('cors');
 /* Routers */
 const indexRouter = require('./routes/index');
 const catalogRouter = require('./routes/catalog');
-const authenticationRouter = require('./routes/authentication');
 const userRouter = require('./routes/user');
 
 /* Models */
 const User = require('./models/user');
 
-const homepage_service= require('./services/homepageService.js');
+const middleware = require('./middleware/globalVariables');
 
-
-// const authentication_controller = require('./controllers/authenticationController');
 
 const app = express();
 
@@ -43,16 +41,23 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Configure Sessions Middleware
+app.use(session({
+  secret: process.env.SESSION_SECRET_KEY,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60 * 60 * 1000 } // 1 hour
+}));
+
+
 /* Set up for authorization and authentication - initialize passport.js*/
 app.use(passport.initialize());
 app.use(passport.session());
 
-/* Send required data using sessions */
-// app.use(session({ secret: 'mySecret', resave: false, saveUninitialized: false }));
 
 /* Define passport local strategy */
-const LocalStrategy = require('passport-local').Strategy;
-passport.use(new LocalStrategy(User.authenticate()));
+// Passport Local Strategy
+passport.use(User.createStrategy());
 
 //to use with sessions
 passport.serializeUser(User.serializeUser());
@@ -65,9 +70,11 @@ app.use(compression());
 
 
 
+
+
 /* Helmet content security policies */
 app.use(helmet.contentSecurityPolicy({
-  useDefaults: true,
+  useDefaults: false,
   directives: {
     defaultSrc: ["'self'"],
     imgSrc: ["'self'","'unsafe-inline'", 'api.mapbox.com', 'unpkg.com'],
@@ -79,14 +86,14 @@ app.use(helmet.contentSecurityPolicy({
 );
 
 
+
+
 /* Static paths to render assets */
 app.use('/', express.static(path.join(__dirname, 'public')));
 
 /* Routes */
 app.use('/', indexRouter);
 app.use('/catalog', catalogRouter);
-app.use('/login', authenticationRouter);
-// app.use('/user', passport.authenticate('jwt', {session: false}), userRouter);
 app.use('/user', userRouter);
 
 
@@ -100,7 +107,7 @@ app.use('/user', userRouter);
 /* Error handlers */
 //login error 
 app.use(function(req, res, next) {
-  res.status(404).render('login_error', {err: 'Username or password incorrect'});
+  // res.status(404).render('login_error', {err: 'Username or password incorrect'});
 });
 
 // error handler
@@ -113,6 +120,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// app.use(middleware.appendLocalsToUseInViews);
+
 
 
 

@@ -25,11 +25,18 @@ html(lang='en')
 
     block nav 
       include ./includes/nav_admin
-      h1 HELLO COUNT !{message_count}
 
 
     block main
-      include ./view_messages
+      .container.pt-5(style='height: 600px')
+        .row
+          .col-4 
+            h4 FOLDERS 
+            a(href='/user/all_messages')
+              p Inbox (!{message_count})
+      
+          block viewContainer
+            include ./view_messages
      
     block footer 
       include ./includes/footer

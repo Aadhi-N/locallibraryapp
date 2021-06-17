@@ -7,19 +7,19 @@ block contactForm
         span(aria-hidden='true') &times;
 
   h2 Email 
-  form(method='POST' action='')
+  form.pb-5(method='POST' action='')
     .form-group.pb-4
       label(for='name') Name 
         label.text-danger (required)
-      input#inputName.form-control(type='name', aria-describedby='nameContact' value='testername' name='name')
+      input#inputName.form-control(type='name', aria-describedby='nameContact' name='name')
     .form-group.pb-4
       label(for='email') Email 
         label.text-danger (required)
-      input#inputEmail.form-control(type='email', aria-describedby='emailContact' value='a@a.com' name='email')
+      input#inputEmail.form-control(type='email', aria-describedby='emailContact' name='email')
     .form-group.pb-2
       label(for='libary_card') Library Card Number 
     small#accHelp.form-text.text-muted (required only for account related inquiries)
-      input#inputAcc.form-control(type='number', aria-describedby='accContact' value='12345678' name='library_card')
+      input#inputAcc.form-control(type='number', aria-describedby='accContact' name='library_card')
     .form-group.py-4
       label(for='message') Message 
         label.text-danger (required)

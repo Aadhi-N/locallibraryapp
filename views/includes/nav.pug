@@ -12,6 +12,13 @@ block content
                   a.nav-link(href='/') Home
               li.nav-item
                   a.nav-link(href='/contact') Contact
+              .dropdown
+                li.nav-item
+                  button.btn.btn-danger.dropdown-toggle.dropbtn(onclick='navDropdown()') Collections
+                    #myDropdown.dropdown-content
+                      a(href='/catalog/books') Books
+                      a(href='/catalog/authors') Authors
+                      a(href='/catalog/genres') Genres
           
             ul.navbar-nav.ms-auto.mb-2.mb-lg-0
               if user 
@@ -24,6 +31,5 @@ block content
 
               else 
                 li.nav-item.px-1
-                  a.btn.btn-outline-success.s-4(href='/login' tabindex='-1' role='button' aria-disabled='true') Login
-                li.nav-item.px-1
-                  a.btn.btn-outline-secondary(href='/login/register' tabindex='-1' role='button' aria-disabled='true') Register
+                  a.btn.btn-outline-success.s-4(href='/user/login' tabindex='-1' role='button' aria-disabled='true') Login
+                

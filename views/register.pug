@@ -1,20 +1,50 @@
 extends layout
 
-block content
-  div#register.container
-    div: form(method='POST', class='form-vertical')
-      fieldset
-        legend: strong.text-info Register page
-        
-        div.form-group
-          label Username:
-          input.form-control(name='username', autofocus, value='qwertyui')
+append head
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')
+  script 
+    include ../public/javascripts/scripts.js
 
-        div.form-group
-          label Password:
-          input.form-control(name='password', type='password' value='password123')
 
-        div.form-actions
-          input.btn.btn-primary(type='submit', value='Register')
+block banner 
+  |
 
+block searchBar 
+  |
+  
+block main
+  block errorMsg
+      if err 
+        d
+          .alert.alert-danger.alert.dismissible.fade.show.d-flex.align-items-center(role='alert')
+            svg.bi.bi-exclamation-triangle-fill(xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16')
+              path(d='M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z')
+            div.px-3
+              | !{err}
+            #errMsg.button.close(type='button', data-dismiss='alert', aria-label='Close')
+              span(aria-hidden='true') &times;
+
+  .container-fluid
+  .row.no-gutter
+    .d-none.d-md-flex.col-md-4.col-lg-6.bg-image
+    .col-md-8.col-lg-6
+      .login.d-flex.align-items-center.py-5
+        .container
+          .row
+            .col-md-9.col-lg-8.mx-auto
       
+              h3.login-heading.mb-4 Register
+              form.needs-validation(METHOD='POST')
+                .form-label-group
+                  label.pb-2(for='inputUsername') Library card number (8 digits)
+                  input#inputUsername.form-control(type='text' name='username' minlength='8' maxlength='8' required='' autofocus='' value='qwertyui')
+                .form-label-group
+                  label.pb-2(for='inputPassword') Password
+                  input#inputPassword.form-control(type='text' name='password' minlength='8' maxlength='16' required='' value='password123')
+
+                button.btn.btn-lg.btn-primary.btn-block.btn-login.text-uppercase.font-weight-bold.mb-2(type='submit') Create Account
+                
+              .text-left
+                a.small(href='/user/login') Already have an account? Login here.
+

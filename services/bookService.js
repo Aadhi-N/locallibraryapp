@@ -5,7 +5,34 @@ const BookInstance = require('../models/bookinstance');
 
 const async = require('async');
 
-// Display detail page for a specific book.
+/* Get entire library inventory for display in public views. */
+exports.book_count = function(req, res, next) {
+    async.parallel({
+      book_count: function(callback) {
+        Book.countDocuments({}).exec(callback);
+      },
+      book_instance_count: function(callback) {
+        BookInstance.countDocuments({}).exec(callback);
+      },
+      book_instance_available_count: function(callback) {
+        BookInstance.countDocuments({status: 'Available'}).exec(callback);
+      },
+      author_count: function(callback) {
+        Author.countDocuments({}).exec(callback);
+      },
+      genre_count: function(callback) {
+        Genre.countDocuments({}).exec(callback);
+      },
+  
+    }, function(err, results) {
+        if (err) { return next(err); }
+        // Set data object to local variables
+        res.locals.book_count = results;
+        next();      
+      });
+};
+
+/* Display detail page for a specific book. */
 exports.book_detail = function(req, res, next) {
   async.parallel({
       book: function(callback) {

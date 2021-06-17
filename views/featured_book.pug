@@ -1,11 +1,10 @@
 block featured
   // Featured book of the month
-  .card.mb-3
-      a(href='#!')
+  .card.mb-5.pb-5
+      a(href=featuredBook.url)
         img.featured-book-img.card-img-top(src='/images/book_cover.png', alt='book cover image')
       .card-body
           .small.text-muted January 1, 2021
-          h2.card-title Featured Book of the Month: !{featuredBook}
-          p.card-text
-              | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!
-          a.btn.btn-primary(href='#!') Read more →
+          h2.card-title Featured Book of the Month: !{featuredBook.title}
+          p.card-text Summary: !{featuredBook.summary}
+          a.btn.btn-primary(href=featuredBook.url) Explore more →

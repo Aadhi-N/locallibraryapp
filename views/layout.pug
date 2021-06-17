@@ -25,7 +25,10 @@ html(lang='en')
   body
 
     block nav 
-      include ./includes/nav
+      if user
+        include ./includes/nav_admin
+      else 
+        include ./includes/nav
 
     block banner 
       include ./banner

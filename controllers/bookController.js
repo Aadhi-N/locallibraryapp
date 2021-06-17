@@ -5,6 +5,7 @@ const Genre = require('../models/genre');
 const BookInstance = require('../models/bookinstance');
 
 const async = require('async');
+const { unsubscribe } = require('../app');
 
 
 // Display list of all books.
@@ -15,11 +16,24 @@ exports.book_list_get = function(req, res, next) {
 
 /* Display detail page for a specific book. */
 exports.book_detail = function(req, res, next) {
+    // console.log('SESSION', req.sessionID)
+    // console.log('USER', req.user.username)
     let book_detail = res.locals.book_detail;
+    let book_count = res.locals.book_count;
+    let userID = 'test'
+    
     res.render('book_detail', {
+        book_count: book_count.book_count, 
+        book_instance_count: book_count.book_instance_count, 
+        book_instance_available_count: book_count.book_instance_available_count, 
+        author_count: book_count.author_count, 
+        genre_count: book_count.genre_count,
         title: book_detail.book.title, 
         book: book_detail.book, 
-        book_instances: book_detail.book_instance});
+        book_instances: book_detail.book_instance,
+        session: req.sessionID,
+        user: userID
+    })
 };
 
 

@@ -1,11 +1,16 @@
 extends layout 
-  
+
+append head 
+  script 
+    include ../public/javascripts/scripts.js
+
+block nav 
+  include ./includes/nav_admin  
+
 block mainBanner
   // Page header with logo and tagline
   .jumbotron.header.py-5.bg-light.border-bottom.mb-0
     .container.py-5
       .text-center.my-5
-        h1.fw-bolder !{welcomeMsg}, !{user.username}!
+        h1.fw-bolder !{welcomeMsg}, !{username}!
         p.lead.mb-0 !{welcomeDesc}
-
-  

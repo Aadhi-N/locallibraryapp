@@ -9,11 +9,11 @@ block content
       #navbarSupportedContent.collapse.navbar-collapse
             ul.navbar-nav.ms-auto.mb-2.mb-lg-0
               li.nav-item
-                  a.nav-link(href='/dashboard') Admin Home
+                  a.nav-link(href='/dashboard') Home
 
             ul.navbar-nav.ms-auto.mb-2.mb-lg-0
               .dropdown
                 button.btn.btn-danger.dropdown-toggle.dropbtn(onclick='navDropdown()') !{username}
                 #myDropdown.dropdown-content
                   a(href='#') Settings
-                  a(href='/logout') Logout
+                  a(href='/user/logout') Logout

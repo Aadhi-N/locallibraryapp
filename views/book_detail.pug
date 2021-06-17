@@ -41,10 +41,13 @@ block featured
         else
           p There are no copies of this book in the library.
       
-
-    .card-body
-      a.card-link(href=book.url+'/delete') Delete Book
-      a.card-link(href=book.url+'/update') Update Book
-
+  
+  block modifyItem
+    if user
+      .card-body
+        a.card-link(href=book.url+'/delete') Delete Book
+        a.card-link(href=book.url+'/update') Update Book
+    else
+    |
 
 

@@ -1,32 +1,14 @@
-
-block main 
-
-.container.pt-5(style='height: 600px')
-  .row
-    .col-4 
-      button NEW MESSAGE 
-
-      h4 FOLDERS 
-      a(href='/user/all_messages')
-        p Inbox(14)
-        
-
-    block viewContainer
-      .col-8 
-        each message in message_list
-          form(METHOD='POST' action='')
-            input(type='hidden' name='id' value=message._id)
-            table.table.table-hover
-              button(type='submit') OPEN MESSAGE
-              tbody
-                  tr
-                    td !{message.subject}
-                    td !{message.subject}
-                    td !{message.date_formatted}
-                    td !{message.read}
-                    td
-                      button DELETE
-          
+block viewContainer 
+  .col-8 
+    each message in message_list
+      a#unread(href=message.url value=message.url)
+        table.table.table-hover
+          tbody
+              tr
+                td !{message.subject}
+                td !{message.subject}
+                td !{message.date_formatted}
+                
 
             
 

@@ -1,10 +1,13 @@
 extends layout 
 
+block inventory 
+  |
+
 block featured 
   h1=title 
 
     each author in author_list 
-      .card.mb-3(style='max-width: 540px;')
+      .card.mb-5(style='max-width: 540px;')
         .row.g-0
           .col-md-4
             a(href=author.url)
