@@ -9,8 +9,6 @@ exports.index = function(req, res, next) {
   let headers = res.locals;
   let count = res.locals.book_count;
 
-  console.log('FEATURED BOOK', res.locals.featured_book)
-
   res.render('index', { 
     libTitle: headers.libTitle, 
     welcomeMsg: headers.welcomeMsg,

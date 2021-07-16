@@ -1,6 +1,5 @@
 const Book = require('../models/book');
 
-
 exports.book_list = function(req, res, next) {
   Book.find({}, 'title author summary')
   .populate('author')

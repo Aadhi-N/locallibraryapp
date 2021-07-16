@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const connectEnsureLogin = require('connect-ensure-login'); 
 
-
 /* Require controller modules. */
 var book_controller = require('../controllers/bookController');
 var author_controller = require('../controllers/authorController');

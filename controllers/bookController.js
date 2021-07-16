@@ -16,8 +16,6 @@ exports.book_list_get = function(req, res, next) {
 
 /* Display detail page for a specific book. */
 exports.book_detail = function(req, res, next) {
-    // console.log('SESSION', req.sessionID)
-    // console.log('USER', req.user.username)
     let book_detail = res.locals.book_detail;
     let book_count = res.locals.book_count;
     let userID = 'test'

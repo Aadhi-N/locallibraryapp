@@ -1,17 +1,14 @@
 const dotenv = require('dotenv');
 dotenv.config();
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
-const connectEnsureLogin = require('connect-ensure-login');// authorization
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const compression = require('compression');
 const helmet = require('helmet');
-const cors = require('cors');
 
 /* Routers */
 const indexRouter = require('./routes/index');
@@ -21,12 +18,10 @@ const userRouter = require('./routes/user');
 /* Models */
 const User = require('./models/user');
 
-const middleware = require('./middleware/globalVariables');
-
 
 const app = express();
 
-// Set up mongoose connection
+/* Set up mongoose connection */
 const mongoDB = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.wj4yy.mongodb.net/local_library?retryWrites=true&w=majority`;
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
@@ -67,11 +62,6 @@ passport.deserializeUser(User.deserializeUser());
 app.use(cookieParser());
 app.use(compression());
 
-
-
-
-
-
 /* Helmet content security policies */
 app.use(helmet.contentSecurityPolicy({
   useDefaults: false,
@@ -85,9 +75,6 @@ app.use(helmet.contentSecurityPolicy({
   })
 );
 
-
-
-
 /* Static paths to render assets */
 app.use('/', express.static(path.join(__dirname, 'public')));
 
@@ -96,13 +83,6 @@ app.use('/', indexRouter);
 app.use('/catalog', catalogRouter);
 app.use('/user', userRouter);
 
-
-
-
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
 
 /* Error handlers */
 //login error 
@@ -120,11 +100,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// app.use(middleware.appendLocalsToUseInViews);
-
-
-
 
 
 module.exports = app;

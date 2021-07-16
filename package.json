@@ -1,11 +1,11 @@
 {
-  "name": "express-locallibrary-tutorial",
+  "name": "locallibraryapp",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "serverstart": "DEBUG=express-locallibrary-tutorial:* npm run devstart"
+    "serverstart": "DEBUG=locallibraryapp:* npm run devstart"
   },
   "dependencies": {
     "async": "^3.2.0",
@@ -30,8 +30,5 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.1.0",
     "pug": "2.0.0-beta11"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.7"
   }
 }
